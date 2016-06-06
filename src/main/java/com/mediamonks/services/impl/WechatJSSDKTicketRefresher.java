@@ -48,6 +48,7 @@ public class WechatJSSDKTicketRefresher implements WechatService {
         }
     }
 
+
     private void refreshJsApiTicket(WeChatAccount weChatAccount) {
         String appId = weChatAccount.getAppId();
         String appSecret = weChatAccount.getAppSecret();
