@@ -3,6 +3,8 @@ package com.mediamonks.utils;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -19,17 +21,16 @@ public class HttpClientUtils {
         return httpClient;
     }
 
-    public static JSONObject getJsonResponse(String url){
+    public static JSONObject getJsonResponse(String url) throws IOException {
         try {
             GetMethod getMethod = new GetMethod(url);
             get().executeMethod(getMethod);
             String response = getMethod.getResponseBodyAsString();
             return JSONObject.parseObject(response);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 }
