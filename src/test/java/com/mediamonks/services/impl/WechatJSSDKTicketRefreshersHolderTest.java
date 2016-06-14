@@ -1,6 +1,8 @@
 package com.mediamonks.services.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mediamonks.domain.Client;
+import com.mediamonks.domain.WeChatAccount;
 import com.mediamonks.utils.HttpClientUtils;
 import com.mediamonks.utils.StringUtils;
 import org.junit.Test;
@@ -13,15 +15,45 @@ import static org.junit.Assert.*;
 /**
  * Created by zhangchen on 16/6/13.
  */
-public class WechatJSSDKTicketRefresherTest {
+public class WechatJSSDKTicketRefreshersHolderTest {
 
+
+    @Test
+    public void testRefreshJsApiTicket_null_arg() throws IOException {
+        WechatJSSDKTicketRefreshersHolder wechatJSSDKTicketRefreshersHolder = new WechatJSSDKTicketRefreshersHolder();
+        try {
+            wechatJSSDKTicketRefreshersHolder.refreshJsApiTicket(null);
+            fail("should throw exception");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    public void testRefreshJsApiTicket_wrongAppIdOrSecret() throws IOException {
+        WechatJSSDKTicketRefreshersHolder wechatJSSDKTicketRefreshersHolder = new WechatJSSDKTicketRefreshersHolder();
+        WeChatAccount weChatAccount = dummyWechatAccount();
+        wechatJSSDKTicketRefreshersHolder.refreshJsApiTicket(weChatAccount);
+        assertNull(weChatAccount.getTicket());
+    }
+
+
+
+    private WeChatAccount dummyWechatAccount() {
+        WeChatAccount weChatAccount = new WeChatAccount();
+        Client client = new Client();
+        client.changeName("test");
+        weChatAccount.changeClient(client);
+        weChatAccount.initial("test", "test");
+        return weChatAccount;
+    }
 
     @Test
     public void testNewTokenUrl() throws IOException {
         String token = getAccessToken();
-        System.out.println("token: "+token);
+        assertNotNull(token);
         String js_ticket = getTicket();
-        System.out.println("ticket: " + js_ticket);
+        assertNotNull(js_ticket);
     }
 
     private String  getAccessToken() throws IOException {

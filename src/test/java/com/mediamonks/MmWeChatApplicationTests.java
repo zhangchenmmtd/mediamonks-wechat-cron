@@ -11,8 +11,4 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 public class MmWeChatApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
-
 }

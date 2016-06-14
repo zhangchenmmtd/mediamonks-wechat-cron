@@ -16,7 +16,7 @@ public class PropertiesUtils {
         try {
             Properties properties = PropertiesLoaderUtils.loadAllProperties("application.properties");
             return properties.getProperty(key);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -27,7 +27,7 @@ public class PropertiesUtils {
         try {
             Properties properties = PropertiesLoaderUtils.loadAllProperties("application.properties");
             return Integer.valueOf(properties.getProperty(key));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

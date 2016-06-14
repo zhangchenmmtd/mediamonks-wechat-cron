@@ -1,5 +1,7 @@
 package com.mediamonks.utils;
 
+import org.springframework.util.Assert;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +22,8 @@ public class StringUtils {
         return result;
     }
 
-    public static String encode(String textNeedToEncode) {
+    public static String encodeSHA(String textNeedToEncode) {
+        Assert.hasText(textNeedToEncode,"text can not be empty or null");
         MessageDigest crypt = null;
         try {
             crypt = MessageDigest.getInstance("SHA-1");
@@ -36,16 +39,13 @@ public class StringUtils {
     }
 
     public final static String MD5(String s) {
+        Assert.hasText(s,"text can not be empty or null");
         char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
         try {
             byte[] btInput = s.getBytes();
-            // 获得MD5摘要算法的 MessageDigest 对象
             MessageDigest mdInst = MessageDigest.getInstance("MD5");
-            // 使用指定的字节更新摘要
             mdInst.update(btInput);
-            // 获得密文
             byte[] md = mdInst.digest();
-            // 把密文转换成十六进制的字符串形式
             int j = md.length;
             char str[] = new char[j * 2];
             int k = 0;
@@ -62,6 +62,7 @@ public class StringUtils {
     }
 
     public static boolean hasText(String signature) {
+        Assert.hasText(signature,"Text can not be empty");
         return org.springframework.util.StringUtils.hasText(signature);
     }
 }
